@@ -4,4 +4,5 @@ CREATE TABLE Fine(
      amount       INT NOT NULL CHECK (amount > 0),
      PRIMARY KEY (memberID, accessionNo),
      FOREIGN KEY (accessionNo) REFERENCES Book(accessionNo) ON DELETE RESTRICT,
-     FOREIGN KEY (memberID) REFERENCES Member(memberID) ON DELETE RESTRICT);
+     FOREIGN KEY (memberID) REFERENCES Member(memberID) ON DELETE RESTRICT
+);

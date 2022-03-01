@@ -4,6 +4,7 @@ CREATE TABLE Payment(
     paymentDate DATE NOT NULL,
     PRIMARY KEY (memberID, accessionNo, paymentDate),
     FOREIGN KEY (memberID) REFERENCES Member(memberID), 
-    FOREIGN KEY (accessionNo) REFERENCES Book(accessionNo));
+    FOREIGN KEY (accessionNo) REFERENCES Book(accessionNo)
+);
     
     
