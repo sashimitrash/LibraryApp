@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b1b3c79-ce37-4143-b926-b2940e98b0e6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment1.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/fine_creation.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/payment_creation.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/createFine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createFine.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createPayment.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createPayment.sql" afterDir="false" />
-    </list>
+    <list default="true" id="2b1b3c79-ce37-4143-b926-b2940e98b0e6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +50,7 @@
       <updated>1645588845426</updated>
       <workItem from="1645588846765" duration="49000" />
       <workItem from="1645774610312" duration="115000" />
-      <workItem from="1646114885703" duration="861000" />
+      <workItem from="1646114885703" duration="1191000" />
     </task>
     <servers />
   </component>

@@ -1,10 +1,10 @@
 CREATE TABLE Payment(
-	memberID     VARCHAR(5)  NOT NULL,
-    accessionNo  VARCHAR(10) NOT NULL,
+	memberid      VARCHAR(5)  NOT NULL,
+    accession_no  VARCHAR(10) NOT NULL,
     paymentDate DATE NOT NULL,
-    PRIMARY KEY (memberID, accessionNo, paymentDate),
-    FOREIGN KEY (memberID) REFERENCES Member(memberID), 
-    FOREIGN KEY (accessionNo) REFERENCES Book(accessionNo)
+    PRIMARY KEY (memberid, accession_no, paymentDate),
+    FOREIGN KEY (memberID) REFERENCES members(memberid), 
+    FOREIGN KEY (accession_no) REFERENCES books(accession_no)
 );
     
     
