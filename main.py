@@ -1,42 +1,34 @@
-from tkinter import Tk, Frame, Label, Button
-from PIL import Image, ImageTk
-from apps.report.report_main import Report
-from apps.resources.variables import *
+from tkinter import Tk
+from sqlalchemy import create_engine
+import pandas as pd
+import pymysql
+
+from landing_page import LandingPage
+from apps.resources.container import Container
 
 
-LANDING_PAGE_ICON_SIZE = 300
-LANDING_PAGE_FONT_SIZE = 40
+class LibraryApp(Container):
+    def __init__(self):
+        USER = 'kctey'
+        PASSWORD = 'CQu1FxSp'
+        HOST = '127.0.0.1'
+        PORT = 3306
+        DATABASE = 'Library'
 
-class LandingPage:
-    def __init__(self, root):
-        self.root = root
-        root.title('Library System Landing Page')
+        self.engine = create_engine('mysql+pymysql://{0}:{1}@{2}:{3}/{4}'.format(
+            USER, PASSWORD, HOST, PORT, DATABASE
+        ))
 
-        # container window, everything will be added to this container
-        self.container = Frame(root, bg='white', width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
-        self.container.grid()
+        self.root = Tk()
 
-        # reports option
-        self.report_image = self.open_image('apps/resources/reports.png', LANDING_PAGE_ICON_SIZE, LANDING_PAGE_ICON_SIZE)
-        self.report_button = Button(root, image=self.report_image, command=self.go_to_report)
-        self.report_button.place(relx=0.7, rely=0.7, anchor='center')
-        self.report_text = Label(root, text='Reports', font=(FONT, LANDING_PAGE_FONT_SIZE, STYLE), fg='black', bg='white')
-        self.report_text.place(relx=0.7, rely=0.9, anchor='center')
+        self.landing = LandingPage(self.root, self, self.engine)
 
-    def open_image(self, image_path, resized_width, resized_height):
-        path = image_path
-        image = Image.open(path)
-        resized_image = image.resize((resized_width, resized_height), Image.ANTIALIAS)
-        resized_image = ImageTk.PhotoImage(resized_image)
-        return resized_image
+        self.root.mainloop()
 
-    def go_to_report(self):
-        report_gui = Report(root)
-        self.container.grid_forget()
-
-        print('go to report')
+    def return_to_main_menu(self, child):
+        LandingPage(self.root, self, self.engine)
+        child.container.grid_forget()
 
 
-root = Tk()
-landing_page = LandingPage(root)
-root.mainloop()
+
+app = LibraryApp()
