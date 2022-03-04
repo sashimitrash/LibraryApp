@@ -1,7 +1,21 @@
-from tkinter import Label, Button, Entry
+from textwrap import wrap
+from tkinter import Label, Button, Entry, Tk, ttk, Canvas, Frame
 from PIL import Image, ImageTk
+from sqlalchemy import text
 from apps.resources.variables import *
 from apps.resources.container import Container
+
+
+def search_author_for_each_book(engine, book_list):
+    cursor = engine.connect()
+    author_data = []
+    for book_accession in book_list:
+        author_query = "SELECT author_name FROM book_author WHERE book_accession = '{}'".format(book_accession)
+        data = cursor.execute(author_query).fetchall()
+        tmp_author = [author_name[0] for author_name in data]
+        author_data.append(tmp_author)
+
+    return author_data
 
 
 class Report(Container):
@@ -73,16 +87,30 @@ class Report(Container):
         self.container.grid_forget()
 
     def book_on_loan(self):
-        print('Books on Loan')
+        sql_statement = text("SELECT l.BorrowedBookAccession, b.title, b.isbn, b.publisher, b.publication_year "
+                             "FROM loan l LEFT JOIN books b ON l.BorrowedBookAccession = b.accession_no")
+        cursor = self.engine.connect()
+        book_data = cursor.execute(sql_statement).fetchall()
+        book_accessions = [data[0] for data in book_data]
+        author_data = search_author_for_each_book(self.engine, book_accessions)
+
+        assert len(book_data) == len(author_data)
+        display_data = [BOOKS_ON_LOAN]
+        for book, author in zip(book_data, author_data):
+            # combine multiple authors into one string to be appended into table
+            row = list(book) + ['\n'.join(author)]
+            display_data.append(row)
+
+        Notification(self.root, 'Books on Loan', display_data)
 
     def book_on_reservation(self):
-        print('Book on reservation')
+        Notification(self.root, 'Books on Reservation', [])
 
     def outstanding_fine(self):
-        print('Outstanding Fines')
+        Notification(self.root, 'Outstanding Fines', [])
 
     def books_loan_to_member(self):
-        print('Books loan to members')
+        Notification(self.root, 'Books loan to members', [])
 
 
 class BookSearch(Container):
@@ -106,7 +134,7 @@ class BookSearch(Container):
         self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
 
         # book search button
-        self.search_btn = Button(self.container, text='Search Book', command=self.search_books,
+        self.search_btn = Button(self.container, text='Search Book', command=self.go_to_notification,
                                  bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
                                  highlightthickness=4, highlightbackground="#eaba2d")
         self.search_btn.config(font=(FONT, FONT_SIZE, STYLE))
@@ -156,9 +184,23 @@ class BookSearch(Container):
         Report(self.root, self.parent, self.engine)
         self.container.grid_forget()
 
+    def go_to_notification(self):
+        book_data = self.search_books()
+        all_books_found = [data[0] for data in book_data]
+        author_data = search_author_for_each_book(self.engine, all_books_found)
+
+        assert len(book_data) == len(author_data)
+        display_data = [BOOKS_SEARCH]
+        for book, author in zip(book_data, author_data):
+            # combine multiple authors into one string to be appended into table
+            row = list(book) + [',\n'.join(author)]
+            display_data.append(row)
+
+        Notification(self.root, 'Book Search Result', display_data)
+
     def get_query_parameters(self):
         book_entry = [self.title_entry.get(), self.isbn_entry.get(),
-                       self.publication_year_entry.get(), self.publisher_entry.get()]
+                      self.publication_year_entry.get(), self.publisher_entry.get()]
         book_query_field = ['title', 'isbn', 'publication_year', 'publisher']
 
         author_entry = [self.author_entry.get()]
@@ -184,7 +226,7 @@ class BookSearch(Container):
         keyword_idx = 0
         condition = ""
         if len(author_query) > 0:
-            author_conditon = " {} accession_no IN (SELECT book_accession FROM book_author WHERE author_name = '{}')".\
+            author_conditon = " {} accession_no IN (SELECT book_accession FROM book_author WHERE author_name LIKE '%%{}%%')". \
                 format(keyword[keyword_idx], author_query['author_name'])
             keyword_idx += 1
             condition += author_conditon
@@ -200,11 +242,55 @@ class BookSearch(Container):
 
         cursor = self.engine.connect()
         data = cursor.execute(sql_statement).fetchall()
-        print(data)
+
+        return data
 
 
-class SearchNotification:
-    pass
+class Notification:
+    def __init__(self, root, heading_text, display_data):
+        # tutorial on how to make table: https://www.youtube.com/watch?v=0WafQCaok6g&ab_channel=Codemy.com
+        self.root = root
+        NOTIFICATION_WIDTH = 1000
+        NOTIFICATION_HEIGHT = 600
+        PARENT_SCREEN_WIDTH = self.root.winfo_screenwidth()  # this gets the width of your entire monitor
+        PARENT_SCREEN_HEIGHT = self.root.winfo_screenheight()
 
+        NOTIFICATION_X = (PARENT_SCREEN_WIDTH / 4) - (NOTIFICATION_WIDTH / 2)
+        NOTIFICATION_Y = (PARENT_SCREEN_HEIGHT / 2) - (NOTIFICATION_HEIGHT / 2)
 
+        new_root = Tk()
+        new_root.title(heading_text)
 
+        frame = Frame(new_root, height=NOTIFICATION_HEIGHT, width=NOTIFICATION_WIDTH)
+        frame.pack(fill='both', expand=1)
+
+        canvas = Canvas(frame)
+        vert_scroll_bar = ttk.Scrollbar(frame, command=canvas.yview, orient='vertical')
+        vert_scroll_bar.pack(side='right', fill='y')
+        hori_scroll_bar = ttk.Scrollbar(frame, command=canvas.xview, orient='horizontal')
+        hori_scroll_bar.pack(side='bottom', fill='x')
+
+        canvas.config(yscrollcommand=vert_scroll_bar.set, xscrollcommand=hori_scroll_bar.set)
+        canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
+        canvas.pack(fill='both', side='left', expand=1)
+
+        second_frame = Frame(canvas)
+        canvas.create_window((0, 0), window=second_frame, anchor='nw')
+
+        for y, row in enumerate(display_data):
+            for x, item in enumerate(row):
+                if y == 0:
+                    font_size = FONT_SIZE
+                    background = '#20b49f'
+                else:
+                    font_size = 14
+                    if y % 2 != 0:
+                        background = '#cce5df'
+                    else:
+                        background = '#e7f2f0'
+                l = Label(second_frame, text=str(item), font=(FONT, font_size, STYLE),
+                          bg=background, wraplength=195)
+                l.grid(row=y, column=x, padx=2, pady=2, sticky='nsew')  # sticky = nsew expands north south east west
+
+        new_root.geometry('%dx%d+%d+%d' % (NOTIFICATION_WIDTH, NOTIFICATION_HEIGHT,
+                                       NOTIFICATION_X, NOTIFICATION_Y))

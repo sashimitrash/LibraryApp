@@ -1,4 +1,4 @@
-from tkinter import Label, Button, Entry
+from tkinter import Label, Button, Entry, Frame, Canvas, ttk, Tk
 from apps.resources.variables import *
 from apps.resources.container import Container
 from apps.report.report_pages import Report
@@ -25,7 +25,7 @@ class BookSearch(Container):
         self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
 
         # book search button
-        self.search_btn = Button(self.container, text='Search Book', command=self.search_books,
+        self.search_btn = Button(self.container, text='Search Book', command=self.go_to_notification,
                                  bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
                                  highlightthickness=4, highlightbackground="#eaba2d")
         self.search_btn.config(font=(FONT, FONT_SIZE, STYLE))
@@ -72,8 +72,22 @@ class BookSearch(Container):
                                 width=REPORT_ENTRY_BOX_WIDTH, height=REPORT_ENTRY_BOX_HEIGHT)
 
     def go_to_report(self):
-        Report(self.root, self.parent)
+        Report(self.root, self.parent, self.engine)
         self.container.grid_forget()
+
+    def go_to_notification(self):
+        book_data = self.search_books()
+        all_books_found = [data[0] for data in book_data]
+        author_data = self.search_author_for_each_book(all_books_found)
+
+        assert len(book_data) == len(author_data)
+        display_data = [BOOKS_SEARCH]
+        for book, author in zip(book_data, author_data):
+            # combine multiple authors into one string to be appended into table
+            row = list(book) + ['\n'.join(author)]
+            display_data.append(row)
+
+        Notification(self.root, 'Book Search Result', display_data)
 
     def get_query_parameters(self):
         book_entry = [self.title_entry.get(), self.isbn_entry.get(),
@@ -103,7 +117,7 @@ class BookSearch(Container):
         keyword_idx = 0
         condition = ""
         if len(author_query) > 0:
-            author_conditon = " {} accession_no IN (SELECT book_accession FROM book_author WHERE author_name = '{}')".\
+            author_conditon = " {} accession_no IN (SELECT book_accession FROM book_author WHERE author_name LIKE '%%{}%%')".\
                 format(keyword[keyword_idx], author_query['author_name'])
             keyword_idx += 1
             condition += author_conditon
@@ -119,4 +133,64 @@ class BookSearch(Container):
 
         cursor = self.engine.connect()
         data = cursor.execute(sql_statement).fetchall()
-        print(data)
+
+        return data
+
+    def search_author_for_each_book(self, book_list):
+        cursor = self.engine.connect()
+        author_data = []
+        for book_accession in book_list:
+            author_query = "SELECT author_name FROM book_author WHERE book_accession = '{}'".format(book_accession)
+            data = cursor.execute(author_query).fetchall()
+            tmp_author = [author_name[0] for author_name in data]
+            author_data.append(tmp_author)
+
+        return author_data
+
+class Notification:
+    def __init__(self, root, heading_text, display_data):
+        self.root = root
+        NOTIFICATION_HEIGHT = 600
+        NOTIFICATION_WIDTH = 1000
+        PARENT_SCREEN_WIDTH = self.root.winfo_screenwidth()  # this gets the width of your entire monitor
+        PARENT_SCREEN_HEIGHT = self.root.winfo_screenheight()
+
+        NOTIFICATION_X = (PARENT_SCREEN_WIDTH / 4) - (NOTIFICATION_WIDTH / 2)
+        NOTIFICATION_Y = (PARENT_SCREEN_HEIGHT / 2) - (NOTIFICATION_HEIGHT / 2)
+
+        new_root = Tk()
+        new_root.title(heading_text)
+
+        frame = Frame(new_root, height=NOTIFICATION_HEIGHT, width=NOTIFICATION_WIDTH)
+        frame.pack(fill='both', expand=1)
+
+        canvas = Canvas(frame)
+        vert_scroll_bar = ttk.Scrollbar(frame, command=canvas.yview, orient='vertical')
+        vert_scroll_bar.pack(side='right', fill='y')
+        hori_scroll_bar = ttk.Scrollbar(frame, command=canvas.xview, orient='horizontal')
+        hori_scroll_bar.pack(side='bottom', fill='x')
+
+        canvas.config(yscrollcommand=vert_scroll_bar.set, xscrollcommand=hori_scroll_bar.set)
+        canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
+        canvas.pack(fill='both', side='left', expand=1)
+
+        second_frame = Frame(canvas)
+        canvas.create_window((0, 0), window=second_frame, anchor='nw')
+
+        for y, row in enumerate(display_data):
+            for x, item in enumerate(row):
+                if y == 0:
+                    font_size = FONT_SIZE
+                    background = '#20b49f'
+                else:
+                    font_size = 14
+                    if y % 2 != 0:
+                        background = '#cce5df'
+                    else:
+                        background = '#e7f2f0'
+                l = Label(second_frame, text=str(item), font=(FONT, font_size, STYLE),
+                          bg=background, wraplength=195)
+                l.grid(row=y, column=x, padx=2, pady=2, sticky='nsew')  # sticky = nsew expands north south east west
+
+        new_root.geometry('%dx%d+%d+%d' % (NOTIFICATION_WIDTH, NOTIFICATION_HEIGHT,
+                                       NOTIFICATION_X, NOTIFICATION_Y))
