@@ -1,4 +1,3 @@
-from textwrap import wrap
 from tkinter import Label, Button, Entry, Tk, ttk, Canvas, Frame
 from PIL import Image, ImageTk
 from sqlalchemy import text
@@ -24,6 +23,7 @@ class Report(Container):
         self.init_image()
         self.parent = parent
         self.engine = engine
+        self.cursor = self.engine.connect()
 
         # reports image
         self.report = self.open_image('apps/resources/reports.png', SIDE_IMAGE_WIDTH, SIDE_IMAGE_HEIGHT)
@@ -89,8 +89,7 @@ class Report(Container):
     def book_on_loan(self):
         sql_statement = text("SELECT l.BorrowedBookAccession, b.title, b.isbn, b.publisher, b.publication_year "
                              "FROM loan l LEFT JOIN books b ON l.BorrowedBookAccession = b.accession_no")
-        cursor = self.engine.connect()
-        book_data = cursor.execute(sql_statement).fetchall()
+        book_data = self.cursor.execute(sql_statement).fetchall()
         book_accessions = [data[0] for data in book_data]
         author_data = search_author_for_each_book(self.engine, book_accessions)
 
@@ -104,13 +103,33 @@ class Report(Container):
         Notification(self.root, 'Books on Loan', display_data)
 
     def book_on_reservation(self):
-        Notification(self.root, 'Books on Reservation', [])
+        sql_statement = text("SELECT r.ReservedBookAccession, b.title, m.memberid, m.name FROM Reservation r "
+                             "LEFT JOIN members m ON r.ReserverID = m.memberid "
+                             "LEFT JOIN books b ON r.ReservedBookAccession = b.accession_no")
+
+        book_data = self.cursor.execute(sql_statement).fetchall()
+        display_data = [BOOKS_RESERVED]
+        for book in book_data:
+            row = list(book)
+            display_data.append(row)
+
+        Notification(self.root, 'Books on Reservation', display_data)
 
     def outstanding_fine(self):
-        Notification(self.root, 'Outstanding Fines', [])
+        sql_statement = text("SELECT f.memberid, m.name, m.faculty, m.phoneNumber, m.email FROM Fine f "
+                             "LEFT JOIN members m ON f.memberid = m.memberid")
+
+        member_data = self.cursor.execute(sql_statement).fetchall()
+        display_data = [MEMBERS_WITH_FINES]
+        for member in member_data:
+            row = list(member)
+            display_data.append(row)
+
+        Notification(self.root, 'Outstanding Fines', display_data)
 
     def books_loan_to_member(self):
-        Notification(self.root, 'Books loan to members', [])
+        BooksLoanToMember(self.root, self.parent, self.engine)
+        self.container.grid_forget()
 
 
 class BookSearch(Container):
@@ -119,6 +138,7 @@ class BookSearch(Container):
         self.init_image()
         self.parent = parent
         self.engine = engine
+        self.cursor = self.engine.connect()
 
         # title label
         self.label = Label(self.container, text='Search based on one of the categories below:', fg='black', bg='#2dccb6',
@@ -240,8 +260,7 @@ class BookSearch(Container):
 
         sql_statement += condition
 
-        cursor = self.engine.connect()
-        data = cursor.execute(sql_statement).fetchall()
+        data = self.cursor.execute(sql_statement).fetchall()
 
         return data
 
@@ -250,7 +269,7 @@ class Notification:
     def __init__(self, root, heading_text, display_data):
         # tutorial on how to make table: https://www.youtube.com/watch?v=0WafQCaok6g&ab_channel=Codemy.com
         self.root = root
-        NOTIFICATION_WIDTH = 1000
+        NOTIFICATION_WIDTH = 1100
         NOTIFICATION_HEIGHT = 600
         PARENT_SCREEN_WIDTH = self.root.winfo_screenwidth()  # this gets the width of your entire monitor
         PARENT_SCREEN_HEIGHT = self.root.winfo_screenheight()
@@ -289,8 +308,76 @@ class Notification:
                     else:
                         background = '#e7f2f0'
                 l = Label(second_frame, text=str(item), font=(FONT, font_size, STYLE),
-                          bg=background, wraplength=195)
+                          bg=background, wraplength=250)
                 l.grid(row=y, column=x, padx=2, pady=2, sticky='nsew')  # sticky = nsew expands north south east west
 
         new_root.geometry('%dx%d+%d+%d' % (NOTIFICATION_WIDTH, NOTIFICATION_HEIGHT,
                                        NOTIFICATION_X, NOTIFICATION_Y))
+
+
+class BooksLoanToMember(Container):
+    def __init__(self, root, parent, engine):
+        super().__init__(root, 'Book Search')
+        self.init_image()
+        self.parent = parent
+        self.engine = engine
+        self.cursor = engine.connect()
+
+        # title label
+        self.label = Label(self.container, text='Books on Loan to Members', fg='black',
+                           bg='#2dccb6',
+                           relief='raised', width=60, height=3)
+        self.label.config(font=(FONT, FONT_SIZE, STYLE))
+        self.label.place(relx=HEADING_LABEL_X, rely=HEADING_LABEL_Y, anchor="center")  # label is always mid align
+
+        # back to report_menu button
+        self.return_btn = Button(self.container, text='Back to Report Menu', command=self.go_to_report,
+                                 bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
+                                 highlightthickness=4, highlightbackground="#eaba2d")
+        self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
+        self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
+
+        # book search button
+        self.search_btn = Button(self.container, text='Search Book', command=self.go_to_notification,
+                                 bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
+                                 highlightthickness=4, highlightbackground="#eaba2d")
+        self.search_btn.config(font=(FONT, FONT_SIZE, STYLE))
+        self.search_btn.place(relx=0.3, rely=0.9, anchor="center")
+
+        # membership_id entry box
+        self.membership_box = Label(self.container, text='Membership ID', bg='#ca17d5', fg='white', height=3, width=20)
+        self.membership_box.config(font=(FONT, FONT_SIZE, STYLE))
+        self.membership_box.place(relx=MENU_LABEL_X, rely=0.5, anchor='center')
+        self.membership_entry = Entry(self.container, font=(FONT, FONT_SIZE, STYLE))
+        self.membership_entry.place(relx=REPORT_ENTRY_BOX_X, rely=0.5, anchor='center',
+                               width=REPORT_ENTRY_BOX_WIDTH, height=REPORT_ENTRY_BOX_HEIGHT)
+
+    def go_to_report(self):
+        Report(self.root, self.parent, self.engine)
+        self.container.grid_forget()
+
+    def go_to_notification(self):
+        book_data = self.search_books()
+        all_books_found = [data[0] for data in book_data]
+        author_data = search_author_for_each_book(self.engine, all_books_found)
+
+        assert len(book_data) == len(author_data)
+        display_data = [BOOKS_ON_LOAN_TO_MEMBERS]
+        for book, author in zip(book_data, author_data):
+            # combine multiple authors into one string to be appended into table
+            row = list(book) + [',\n'.join(author)]
+            display_data.append(row)
+
+        Notification(self.root, 'Book Search Result', display_data)
+
+    def search_books(self):
+        membership_id = self.membership_entry.get()
+        sql_statement = text("SELECT l.BorrowedBookAccession, b.title, b.isbn, b.publisher, b.publication_year "
+                             "FROM loan l "
+                             "LEFT JOIN books b ON l.BorrowedBookAccession = b.accession_no "
+                             "LEFT JOIN members m ON l.BorrowerID = m.memberid "
+                             "WHERE m.memberid = '{}'".format(membership_id))
+
+        data = self.cursor.execute(sql_statement).fetchall()
+
+        return data

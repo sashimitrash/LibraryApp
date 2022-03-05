@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/report/report_pages.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/report/report_pages.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/report/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/report/search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/resources/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/resources/variables.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +81,7 @@
       <workItem from="1646411585109" duration="2071000" />
       <workItem from="1646413669790" duration="3964000" />
       <workItem from="1646419619103" duration="96000" />
+      <workItem from="1646447296187" duration="1747000" />
     </task>
     <servers />
   </component>

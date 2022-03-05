@@ -194,3 +194,6 @@ class Notification:
 
         new_root.geometry('%dx%d+%d+%d' % (NOTIFICATION_WIDTH, NOTIFICATION_HEIGHT,
                                        NOTIFICATION_X, NOTIFICATION_Y))
+
+class BooksLoanToMember(Container):
+    pass

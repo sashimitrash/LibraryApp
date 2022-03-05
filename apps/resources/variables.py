@@ -30,3 +30,6 @@ REPORT_ENTRY_BOX_WIDTH = 700
 
 BOOKS_SEARCH = ['Accession Number', 'Title', 'ISBN', 'Publisher', 'Year', 'Author']
 BOOKS_ON_LOAN = ['Accession Number', 'Title', 'ISBN', 'Publisher', 'Year', 'Author']
+BOOKS_RESERVED = ['Accession Number', 'Title', 'MembershipID', 'Name']
+MEMBERS_WITH_FINES = ['MembershipID', 'Name', 'Faculty', 'Phone Number', 'Email Address']
+BOOKS_ON_LOAN_TO_MEMBERS = ['Accession Number', 'Title', 'ISBN', 'Publisher', 'Year', 'Authors']
