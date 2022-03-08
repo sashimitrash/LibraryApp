@@ -29,7 +29,7 @@ class Report(Container):
         self.report = self.open_image('apps/resources/reports.png', SIDE_IMAGE_WIDTH, SIDE_IMAGE_HEIGHT)
         # reinitialize because tkinter would destroy self.report variable after using it
         self.report_image  = Label(self.container, image=self.report)
-        self.report_image .place(relx=SIDE_IMAGE_X, rely=SIDE_IMAGE_Y, anchor='center')
+        self.report_image.place(relx=SIDE_IMAGE_X, rely=SIDE_IMAGE_Y, anchor='center')
         self.report_text = Label(self.container, text='Reports', font=(FONT, FONT_SIZE, STYLE), fg='white', bg='black')
         self.report_text.place(relx=SIDE_TEXT_X, rely=SIDE_TEXT_Y, anchor='center')
 

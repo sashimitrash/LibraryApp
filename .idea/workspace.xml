@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2b1b3c79-ce37-4143-b926-b2940e98b0e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/createFine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createFine.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/createPayment.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createPayment.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/loan_creation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/loan_creation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/member_creation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/member_creation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/reservation_creation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/reservation_creation.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/report/report_pages.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/report/report_pages.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/report/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/report/search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/resources/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/resources/variables.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +60,35 @@
       <recent name="$PROJECT_DIR$/SQL" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="ijdhfjndjk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment 1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ijdhfjndjk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.ijdhfjndjk" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -82,10 +114,22 @@
       <workItem from="1646413669790" duration="3964000" />
       <workItem from="1646419619103" duration="96000" />
       <workItem from="1646447296187" duration="1747000" />
+      <workItem from="1646473074526" duration="2721000" />
+      <workItem from="1646531406970" duration="3362000" />
+      <workItem from="1646546405586" duration="310000" />
+      <workItem from="1646558236156" duration="599000" />
+      <workItem from="1646569009000" duration="4000" />
+      <workItem from="1646622250939" duration="237000" />
+      <workItem from="1646622589530" duration="599000" />
+      <workItem from="1646669540557" duration="96000" />
+      <workItem from="1646730479006" duration="1104000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Assignment_1$ijdhfjndjk.coverage" NAME="ijdhfjndjk Coverage Results" MODIFIED="1646533552158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

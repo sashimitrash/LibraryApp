@@ -5,5 +5,5 @@ CREATE TABLE loan(
 	ReturnedDate DATE,
 	PRIMARY KEY(BorrowerID, BorrowedBookAccession, BorrowDate),
 	FOREIGN KEY(BorrowerID) REFERENCES members(memberid) ON DELETE RESTRICT,
-	FOREIGN KEY(BorrowedBookAccession) REFERENCES books(accession_nO) ON DELETE CASCADE                                                                                                       
+	FOREIGN KEY(BorrowedBookAccession) REFERENCES books(accession_no) ON DELETE CASCADE                                                                                                       
 );

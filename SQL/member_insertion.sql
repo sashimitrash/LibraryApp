@@ -1,0 +1,2 @@
+INSERT INTO members
+SELECT * FROM LibMems
