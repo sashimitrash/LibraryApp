@@ -1,4 +1,4 @@
-CREATE TABLE Reservation(
+CREATE TABLE reservation(
 	ReserverID VARCHAR(256) NOT NULL,
     ReservedBookAccession VARCHAR(256) NOT NULL,
     ReservedDate DATE NOT NULL,
