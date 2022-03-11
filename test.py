@@ -4,6 +4,9 @@ from apps.resources.variables import *
 from apps.resources.container import Container
 from apps.report.report_pages import Report
 from apps.report.search import BookSearch, Notification
+from apps.bookmain import BookLandingPage
+from apps.finemain import FineLandingPage
+from landing_page import LandingPage
 
 from sqlalchemy import create_engine
 import pandas as pd
@@ -14,8 +17,8 @@ import pymysql
 
 class testestest(Container):
     def __init__(self):
-        USER = 'kctey'
-        PASSWORD = 'CQu1FxSp'
+        USER = 'root'
+        PASSWORD = 'joansoh17'
         HOST = '127.0.0.1'
         PORT = 3306
         DATABASE = 'Library'
@@ -26,9 +29,13 @@ class testestest(Container):
 
         self.root = Tk()
 
-        self.landing = BookSearch(self.root, self, engine)
+        self.landing = FineLandingPage(self.root,self, engine)
 
         self.root.mainloop()
+
+    #def return_to_main_menu(self, child):
+        #LandingPage(self.root, self, self.engine)
+        #child.container.grid_forget()
 
 
 

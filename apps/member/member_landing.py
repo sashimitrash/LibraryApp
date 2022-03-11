@@ -1,8 +1,4 @@
-#from textwrap import wrap
-from multiprocessing import parent_process
-from tkinter import Label, Button, Entry, Tk, ttk, Canvas, Frame
-from PIL import Image, ImageTk
-from sqlalchemy import engine_from_config, null, text
+from tkinter import Label, Button, Entry
 from sqlalchemy.exc import IntegrityError, DataError, OperationalError
 from apps.resources.variables import *
 from apps.resources.container import Container
@@ -238,14 +234,16 @@ class MemberDelete(Container):
 
             self.confirm_delete_btn = Button(self.container, text='Confirm Delete', padx=10, pady=10,\
                 command=lambda:self.delete_member(self.ID_ent.get()), bg='#27c0ab', borderwidth=5, relief='raised', highlightthickness=4, highlightbackground='#fae420')
-            self.confirm_delete_btn.config(font=(FONT,20,STYLE))
+            self.confirm_delete_btn.config(font=(FONT,FONT_SIZE,STYLE))
             self.confirm_delete_btn.place(relx=0.35, rely=0.7, anchor='center')
 
             self.back_to_delete_btn = Button(self.container, text='Back to Delete Function', padx=10, pady=10,\
                 command=lambda:self.close(self.popup_heading_label, self.popup_body_label, self.confirm_delete_btn, self.back_to_delete_btn),\
                      bg='#27c0ab', borderwidth=5, relief='raised', highlightthickness=4, highlightbackground='#fae420')
-            self.back_to_delete_btn.config(font=(FONT,20,STYLE), wraplength=300)
+            self.back_to_delete_btn.config(font=(FONT,FONT_SIZE,STYLE), wraplength=300)
             self.back_to_delete_btn.place(relx=0.55, rely=0.7, anchor='center')
+
+
 
         else:
             if info == 0:
@@ -278,6 +276,7 @@ class MemberDelete(Container):
         
         except(IntegrityError, DataError):
             self.close(self.popup_heading_label, self.popup_body_label, self.confirm_delete_btn, self.back_to_delete_btn)
+            self.popup(False)
             self.popup(False)
 
 class MemberUpdate(Container):
@@ -403,7 +402,7 @@ class MemberUpdate(Container):
             popup_font_color = "#000000"
             memberInfo_format = "Member ID: {}\nName: {}\nFaculty: {}\nPhone Number: {}\nEmail Address: {}".format(self.ID_ent.get(), info[0],\
                 info[1], info[2], info[3])
-            
+
             self.popup_heading_label = Label(self.container, text=popup_text, bg =popup_bg, fg=popup_font_color, width=35, height=2)
             self.popup_heading_label.config(font=(FONT,FONT_SIZE, STYLE))
             self.popup_heading_label.place(relx=0.5, rely=0.3, anchor="center")
@@ -449,7 +448,7 @@ class MemberUpdate(Container):
     def open(self, *args):
         for element in args:
             element.lift()
-    
+
     def get_update_info(self):
         data = [self.name_ent.get(), self.faculty_ent.get(), self.phone_ent.get(), self.email_ent.get()]
         for i in data:
@@ -465,10 +464,10 @@ class MemberUpdate(Container):
             cursor.execute(sql_query)
             self.close(self.popup_heading_label, self.popup_body_label, self.confirm_update_btn, self.back_to_update_btn)
             self.popup
-        
+
         except(IntegrityError, DataError, OperationalError):
             self.close(self.popup_heading_label, self.popup_body_label, self.confirm_update_btn, self.back_to_update_btn)
             self.popup(False)
-        
+
         except(ValueError):
             print("Handle Error")
