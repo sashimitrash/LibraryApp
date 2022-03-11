@@ -1,8 +1,5 @@
-from textwrap import wrap
 from tkinter import *
 from PIL import Image, ImageTk
-from numpy import insert
-from sqlalchemy import null, text, create_engine
 from apps.resources.variables import *
 from apps.resources.container import Container
 from datetime import *

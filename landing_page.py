@@ -5,8 +5,8 @@ from apps.Loan.Reservation import Reservation
 from apps.resources.variables import *
 from apps.resources.container import Container
 from apps.report.report_pages import Report
-from apps.bookmain import BookLandingPage
-from apps.finemain import FineLandingPage
+from apps.Book.bookmain import BookLandingPage
+from apps.Book.finemain import FineLandingPage
 from apps.member.member_landing import Membership
 
 class LandingPage(Container):

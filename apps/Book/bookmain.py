@@ -1,6 +1,4 @@
-from sqlalchemy import create_engine
 import tkinter as tk
-from PIL import Image, ImageTk
 from apps.resources.variables import *
 from apps.resources.container import Container
 

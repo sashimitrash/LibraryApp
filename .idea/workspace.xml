@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="2b1b3c79-ce37-4143-b926-b2940e98b0e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/createPayment.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createPayment.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL/loan_creation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/loan_creation.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/Loan/Loan.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Loan/Loan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/finemain.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/finemain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/report/report_pages.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/report/report_pages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/book/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/book/menu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/book/success.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/bookmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Book/bookmain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/finemain.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Book/finemain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/landing_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/landing_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +57,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/Book" />
       <recent name="$PROJECT_DIR$/apps/Loan" />
       <recent name="$PROJECT_DIR$/apps/resources" />
       <recent name="$PROJECT_DIR$" />
@@ -127,7 +131,11 @@
       <workItem from="1646967052088" duration="318000" />
       <workItem from="1646967388718" duration="991000" />
       <workItem from="1646985814905" duration="3767000" />
-      <workItem from="1646989605360" duration="860000" />
+      <workItem from="1646989605360" duration="1726000" />
+      <workItem from="1646991429829" duration="106000" />
+      <workItem from="1646993536112" duration="39000" />
+      <workItem from="1646993596243" duration="11000" />
+      <workItem from="1646993724952" duration="65000" />
     </task>
     <servers />
   </component>
