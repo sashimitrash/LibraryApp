@@ -12,7 +12,7 @@ class Reservation(Container):
         self.engine = engine
         
         # reservations image
-        self.reservation = self.open_image('../resources/reservation.png', SIDE_IMAGE_WIDTH, SIDE_IMAGE_HEIGHT)
+        self.reservation = self.open_image('apps/resources/reservation.png', SIDE_IMAGE_WIDTH, SIDE_IMAGE_HEIGHT)
         # reinitialize because tkinter would destroy self.report variable after using it
         self.reservation_image  = Label(self.container, image=self.reservation)
         self.reservation_image .place(relx=SIDE_IMAGE_X, rely=SIDE_IMAGE_Y, anchor='center')
