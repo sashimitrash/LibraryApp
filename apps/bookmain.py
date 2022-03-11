@@ -28,15 +28,15 @@ class BookLandingPage(Container):
 
         #acquisition button
         aquisition_btn = tk.Button(self.container, command = lambda:[self.container.grid_forget(), bookinsert(self.root, self.parent, self.engine)],
-                                   text="Acquisition", bg='#17a1d5', width=12, height=3, relief='raised', borderwidth=5)
+                                   text="4. Acquisition", bg='#17a1d5', fg='white', width=20, height=3, relief='raised', borderwidth=5)
         aquisition_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        aquisition_btn.place(relx=BUTTON_X, rely=0.35)
+        aquisition_btn.place(relx=0.55, rely=0.35)
 
         #withdrawal button
         withdraw_btn = tk.Button(self.container, command = lambda:[self.container.grid_forget(), bookdraw(self.root, self.parent, self.engine)],
-                                   text="Withdrawal", bg='#2964e7', width=12, height=3, relief='raised', borderwidth=5)
+                                   text="5. Withdrawal", bg='#2964e7', fg='white', width=20, height=3, relief='raised', borderwidth=5)
         withdraw_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        withdraw_btn.place(relx=BUTTON_X, rely=0.55)
+        withdraw_btn.place(relx=0.55, rely=0.55)
 
         #main menu button
         home_btn = tk.Button(self.container, text='Back to Main Menu',
@@ -152,26 +152,26 @@ class bookinsert(Container):
         #failure text box
         self.ErrorPop = tk.Label(self.container, text='Error!\n\n Book already added;\n Duplicate, Missing or\nIncomplete fields.',
                                 fg='yellow', bg='#FF0000',
-                               relief='raised', width=30, height=15)
+                               relief='raised', width=40, height=15)
         self.ErrorPop.config(font=(FONT, FONT_SIZE, STYLE))
-        self.ErrorPop.place(relx=0.5, rely=0.4, anchor="center")
+        self.ErrorPop.place(relx=0.5, rely=0.5, anchor="center")
 
         #back to acquisition button
-        self.return_btn = tk.Button(self.container, text='Back to\nAcquisition\nFunction',
+        self.return_btn = tk.Button(self.container, text='Back to Acquisition Function',
                              command=self.CloseConfirmPage,
-                            bg='#27c0ab', width=12, height=3, relief='raised', borderwidth=5,
+                            bg='#27c0ab', width=30, height=3, relief='raised', borderwidth=5,
                             highlightthickness=4, highlightbackground="#eaba2d"
         )
         self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        self.return_btn.place(relx=0.5, rely=0.6, anchor="center")
+        self.return_btn.place(relx=0.5, rely=0.7, anchor="center")
 
     def success(self):
 
         #success text box
-        self.ErrorPop = tk.Label(self.container, text='Success! New book added in Library', fg='black', bg='#00FF00',
-                               relief='raised', width=30, height=15)
+        self.ErrorPop = tk.Label(self.container, text='Success! New book added in Library', fg='black', bg='#9ddd58',
+                               relief='raised', width=40, height=15)
         self.ErrorPop.config(font=(FONT, FONT_SIZE, STYLE))
-        self.ErrorPop.place(relx=0.5, rely=0.4, anchor="center")
+        self.ErrorPop.place(relx=0.5, rely=0.5, anchor="center")
 
         #back to acquisition button
         self.return_btn = tk.Button(self.container, text='Back to Acquisition Function',
@@ -180,7 +180,7 @@ class bookinsert(Container):
                             highlightthickness = 4, highlightbackground = "#eaba2d"
         )
         self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        self.return_btn.place(relx=0.5, rely=0.6, anchor="center")
+        self.return_btn.place(relx=0.5, rely=0.7, anchor="center")
 
         #insert into book table
         query = "INSERT INTO books (accession_no, title, isbn, publisher, publication_year) VALUES (%s, %s, %s, %s, %s)"
@@ -271,15 +271,15 @@ class bookdraw(Container):
                     command=self.candraw, wraplength=300,
                     padx=10, pady=10, bg='#27c0ab', borderwidth=5,
                     relief='raised', highlightthickness=4, highlightbackground='#fae420')
-        self.b1.config(font=(FONT, FONT_SIZE, STYLE))
-        self.b1.place(relx=0.37, rely=0.73, anchor="center")
+        self.b1.config(font=(FONT, NOTIF_FONT_SIZE, STYLE))
+        self.b1.place(relx=0.40, rely=0.7, anchor="center")
 
         #back to withdrawal button
         self.return_btn = tk.Button(self.container, text='Back to Withdrawal Function', command=self.CloseConfirmPage,
                                     padx=10, pady=10, bg='#27c0ab', borderwidth=5,  wraplength=400,
                                     relief='raised', highlightthickness=4, highlightbackground='#fae420')
-        self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        self.return_btn.place(relx=0.6, rely=0.73, anchor="center")
+        self.return_btn.config(font=(FONT, NOTIF_FONT_SIZE, STYLE))
+        self.return_btn.place(relx=0.60, rely=0.7, anchor="center")
 
     def candraw(self):
         self.CloseConfirmPage()

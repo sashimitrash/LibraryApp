@@ -24,9 +24,9 @@ class FineLandingPage(Container):
 
         #payment button
         payment_btn = tk.Button(self.container, command = lambda:[self.container.grid_forget(), FinePayment(root, self.parent, self.engine)],
-                                   text="Fine Payment", fg='white', bg='#17a1d5', height=3, width=12, wraplength=200)
+                                   text="10.Fine Payment", fg='white', bg='#17a1d5', height=3, width=20, wraplength=200)
         payment_btn.config(font=(FONT, FONT_SIZE, STYLE))
-        payment_btn.place(relx=BUTTON_X, rely=0.4)
+        payment_btn.place(relx=0.55, rely=0.5)
 
         #main menu button
         home_btn = tk.Button(self.container, text='Back to Main Menu',

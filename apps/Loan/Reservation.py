@@ -33,15 +33,15 @@ class Reservation(Container):
 
         # Book reserve button
         self.book_reserve = Button(self.container, text='8. Reserve a Book', command=self.book_reserve,
-                                  height=3, width=12,wraplength=200)
+                                  height=3, width=20,wraplength=200)
         self.book_reserve.config(font=(FONT, FONT_SIZE, STYLE), fg='white', bg='#17a1d5')
-        self.book_reserve.place(relx=BUTTON_X, rely=0.35)
+        self.book_reserve.place(relx=0.55, rely=0.35)
 
         # Book cancel button
         self.cancel = Button(self.container, text='9. Cancel Reservation', command=self.cancel,
-                                height=3, width=12, wraplength=200)
+                                height=3, width=20, wraplength=200)
         self.cancel.config(font=(FONT, FONT_SIZE, STYLE), fg='white', bg='#2964e7')
-        self.cancel.place(relx=BUTTON_X, rely=0.55)
+        self.cancel.place(relx=0.55, rely=0.55)
 
     def open_image(self, image_path, resized_width, resized_height):
         path = image_path

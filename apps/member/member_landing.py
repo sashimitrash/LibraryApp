@@ -78,7 +78,7 @@ class MemberCreate(Container):
         self.return_btn = Button(self.container, text='Back to Membership Menu', command=self.go_to_membership,
                                  bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
                                  highlightthickness=4, highlightbackground="#eaba2d")
-        self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
+        self.return_btn.config(font=(FONT, 20, STYLE))
         self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
 
         # book search button
@@ -201,7 +201,7 @@ class MemberDelete(Container):
         self.return_btn = Button(self.container, text='Back to Membership Menu', command=self.go_to_membership,
                                  bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
                                  highlightthickness=4, highlightbackground="#eaba2d")
-        self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
+        self.return_btn.config(font=(FONT, 20, STYLE))
         self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
 
         # book search button
@@ -311,7 +311,7 @@ class MemberUpdate(Container):
         self.return_btn = Button(self.container, text='Back to Membership Menu', command=self.go_to_membership,
                                  bg='#27c0ab', width=20, height=2, relief='raised', borderwidth=5,
                                  highlightthickness=4, highlightbackground="#eaba2d")
-        self.return_btn.config(font=(FONT, FONT_SIZE, STYLE))
+        self.return_btn.config(font=(FONT, 20, STYLE))
         self.return_btn.place(relx=0.7, rely=0.9, anchor="center")
 
         # book search button

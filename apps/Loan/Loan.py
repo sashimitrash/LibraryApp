@@ -39,13 +39,13 @@ class Loan(Container):
         self.book_borrow = Button(self.container, text='6. Borrow', command=self.book_borrow,
                                   height=3, width=20, wraplength=200)
         self.book_borrow.config(font=(FONT, FONT_SIZE, STYLE), fg='white', bg='#17a1d5')
-        self.book_borrow.place(relx=0.55, rely=0.26)
+        self.book_borrow.place(relx=0.55, rely=0.35)
 
         # Book return button
         self.book_return = Button(self.container, text='7. Return', command=self.book_return,
                                 height=3, width=20, wraplength=200)
         self.book_return.config(font=(FONT, FONT_SIZE, STYLE), fg='white', bg='#2964e7')
-        self.book_return.place(relx=0.55, rely=0.42)
+        self.book_return.place(relx=0.55, rely=0.55)
 
     def open_image(self, image_path, resized_width, resized_height):
         path = image_path
