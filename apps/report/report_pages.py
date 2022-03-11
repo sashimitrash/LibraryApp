@@ -103,7 +103,7 @@ class Report(Container):
         Notification(self.root, 'Books on Loan', display_data)
 
     def book_on_reservation(self):
-        sql_statement = text("SELECT r.ReservedBookAccession, b.title, m.memberid, m.name FROM Reservation r "
+        sql_statement = text("SELECT r.ReservedBookAccession, b.title, m.memberid, m.name FROM reservation r "
                              "LEFT JOIN members m ON r.ReserverID = m.memberid "
                              "LEFT JOIN books b ON r.ReservedBookAccession = b.accession_no")
 
@@ -116,7 +116,7 @@ class Report(Container):
         Notification(self.root, 'Books on Reservation', display_data)
 
     def outstanding_fine(self):
-        sql_statement = text("SELECT f.memberid, m.name, m.faculty, m.phoneNumber, m.email FROM Fine f "
+        sql_statement = text("SELECT f.memberid, m.name, m.faculty, m.phoneNumber, m.email FROM fine f "
                              "LEFT JOIN members m ON f.memberid = m.memberid")
 
         member_data = self.cursor.execute(sql_statement).fetchall()
