@@ -139,14 +139,22 @@ class bookinsert(Container):
         sql_statement = "SELECT * FROM books WHERE accession_no = %s"
         data_book = self.cursor.execute(sql_statement,(self.accessionNo,)).fetchall()
 
+        try:
+            self.publication_year = int(self.publication_year)
+        except:
+            return self.failed()
+            
         #checking for missing or incomplete fields
         listOfInputs = [self.accessionNo, self.title, self.authors, self.isbn, self.publisher, self.publication_year]
         if "" in listOfInputs: #checks missing
             return self.failed()
         elif len(data_book) > 0: #check for duplicate
             return self.failed()
+        elif self.publication_year>9999 or self.publication_year<1000:
+            return self.failed()
         else:
             return self.success()
+
 
     def failed(self):
         #failure text box
@@ -283,11 +291,11 @@ class bookdraw(Container):
 
     def candraw(self):
         self.CloseConfirmPage()
-        #sql code here to determine book on loan/ book on reservation/ success
+        #sql code here to determine book on loan/ success
         sql_statement = "SELECT * FROM loan WHERE BorrowedBookAccession = %s"
         data_loan = self.cursor.execute(sql_statement,(self.accessionNo,)).fetchall()
 
-        sql_statement2 = "SELECT * FROM Reservation WHERE ReservedBookAccession = %s"
+        sql_statement2 = "DELETE FROM reservation WHERE ReservedBookAccession = %s"
         data_reserve = self.cursor.execute(sql_statement2,(self.accessionNo,)).fetchall()
 
         if len(data_loan) > 0:
@@ -307,8 +315,7 @@ class bookdraw(Container):
         #back to withdrawal button
         self.back_btn = tk.Button(self.container, text='Back to Withdrawal Function', command=self.CloseErrorPage,
                                   bg='#27c0ab', width=12, height=3, relief='raised', borderwidth=5,
-                                  highlightthickness=4, highlightbackground="#eaba2d"
-                                  )
+                                  highlightthickness=4, highlightbackground="#eaba2d")
         self.back_btn.config(font=(FONT, FONT_SIZE, STYLE))
         self.back_btn.place(relx=0.5, rely=0.6, anchor="center")
 
@@ -327,6 +334,7 @@ class bookdraw(Container):
 
     def SQLWithdraw(self):
         #deleting on sql
+        
         sql_statement3 = "DELETE FROM books WHERE accession_no = %s"
         self.cursor.execute(sql_statement3,(self.accessionNo,))
 
