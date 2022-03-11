@@ -133,7 +133,7 @@ class Reserve(Container):
                 #Book title Label
                 sql_statement = "SELECT title FROM books WHERE accession_no = '{}'".format(self.AN_entry.get(), bg='#9ddd58')
                 data_BT = self.cursor.execute(sql_statement).fetchall()[0][0]
-                self.input_BT = Label(self.container, text=data_BT, font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
+                self.input_BT = Label(self.container, text=data_BT, font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58', wraplength=400)
                 self.input_BT.place(relx=0.6, rely=0.42, anchor="center")
                 #Membership ID Label
                 self.input_ID = Label(self.container, text=self.ID_entry.get(), font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
@@ -151,7 +151,7 @@ class Reserve(Container):
                 self.AN_label = Label(self.container, text = "Accession Number:", font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
                 self.AN_label.place(relx=0.45, rely=0.35, anchor="center")
                 self.BT_label = Label(self.container, text = "Book Title:", font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
-                self.BT_label.place(relx=0.45, rely=0.42, anchor="center")
+                self.BT_label.place(relx=0.42, rely=0.42, anchor="center")
                 self.ID_label = Label(self.container, text = "Membership ID:", font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
                 self.ID_label.place(relx=0.45, rely=0.49, anchor="center")
                 self.name_label = Label(self.container, text = "Member Name:", font=(FONT, FONT_SIZE, STYLE), bg='#9ddd58')
@@ -237,15 +237,14 @@ class Reserve(Container):
                 break
             sql_statement = "INSERT INTO reservation(ReserverID, ReservedBookAccession, ReservedDate) VALUES('{}', '{}', '{}')".format(self.ID_entry.get(), self.AN_entry.get(), self.RD_entry.get())
             self.cursor.execute(sql_statement)       
-    
-    
+
     def go_to_quotaError(self):
         self.popupErrorLabel = Label(self.container, text="Error!\n\n Member currently has 2 Books on Reservation.",
-        fg='yellow', bg='#FF0000',
+        fg='yellow', bg='#FF0000', font=(FONT, FONT_SIZE, STYLE), wraplength=600,
         relief='raised', width=30, height=15)
-        self.popupErrorLabel.place(relx=0.5, rely=0.3, anchor="center")
-        self.backReserveButton = Button(self.container, text="Back to Reserve Function", padx=20, pady=20, 
-            command=self.closeError, bg="#27c0ab",borderwidth=5, highlightthickness=4, highlightbackground="#ecb606", relief="raised")
+        self.popupErrorLabel.place(relx=0.5, rely=0.5, anchor="center")
+        self.backReserveButton = Button(self.container, text="Back to Reserve Function", padx=20, pady=20,
+        font = (FONT, FONT_SIZE, STYLE), command=self.closeError, bg="#27c0ab",borderwidth=5, highlightthickness=4, highlightbackground="#ecb606", relief="raised")
         self.backReserveButton.place(relx=0.5, rely=0.7, anchor="center")
     
     def go_to_fineError(self):
@@ -254,19 +253,18 @@ class Reserve(Container):
         total_fine = 0
         for x in range(len(data_fine)):
             total_fine += data_fine[x][0]
-        print(total_fine)
-        
+
         self.popupErrorLabel = Label(self.container, text="Error!\n\n Member has outstanding Fine of:\n ${}".format(total_fine), 
-        fg='yellow', bg='#FF0000',
+        fg='yellow', bg='#FF0000', font=(FONT, FONT_SIZE, STYLE),
         relief='raised', width=30, height=15)
-        self.popupErrorLabel.place(relx=0.5, rely=0.3, anchor="center")
-        self.backBorrowButton = Button(self.container, text="Back to Borrow Function", padx=20, pady=20, 
-            command=self.closeError, bg="#27c0ab",borderwidth=5, highlightthickness=4, highlightbackground="#ecb606", relief="raised")
+        self.popupErrorLabel.place(relx=0.5, rely=0.5, anchor="center")
+        self.backReserveButton = Button(self.container, text="Back to Reserve Function", padx=20, pady=20,
+        font = (FONT, FONT_SIZE, STYLE),  command=self.closeError, bg="#27c0ab",borderwidth=5, highlightthickness=4, highlightbackground="#ecb606", relief="raised")
         self.backBorrowButton.place(relx=0.5, rely=0.7, anchor="center")
 
     def closeError(self):
         self.popupErrorLabel.lower()
-        self.backBorrowButton.lower()
+        self.backReserveButton.lower()
 
     def go_to_reservations(self):
             Reservation(self.root, self.parent, self.engine)
