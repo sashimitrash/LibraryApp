@@ -7,8 +7,8 @@ import pymysql
 
 class LibraryApp(Container):
     def __init__(self):
-        USER = 'root'
-        PASSWORD = 'Password1!'
+        USER = 'kctey'
+        PASSWORD = 'CQu1FxSp'
         HOST = '127.0.0.1'
         PORT = 3306
         DATABASE = 'Library'

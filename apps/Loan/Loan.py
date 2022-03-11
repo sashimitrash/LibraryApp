@@ -499,13 +499,14 @@ class Return(Container):
         self.backBorrowButton = Button(self.container, text="Back to Borrow Function", padx=20, pady=20, 
             command=self.closeError, bg="#27c0ab",borderwidth=5, highlightthickness=4, highlightbackground="#ecb606", relief="raised", font=(FONT,NOTIF_FONT_SIZE, STYLE))
         self.backBorrowButton.place(relx=0.5, rely=0.7, anchor="center")
-        sql_statement = "SELECT * FROM fine WHERE memberid = '{}'".format(self.ID_entry.get())
+        sql_statement = "SELECT * FROM fine WHERE memberid = '{}'".format(data_ID)
         data_fine = self.cursor.execute(sql_statement).fetchall()
-        if len(data_fine) == 0:
-            sql_statement = "INSERT INTO fine(memberid, amount) VALUES('{}', {})".format(data_ID, fine_amt )
+        print(data_fine)
+        if len(data_fine) > 0:
+            sql_statement = "UPDATE fine SET amount = amount + {} WHERE memberid = '{}'".format(fine_amt, data_ID)
             self.cursor.execute(sql_statement)
         else:
-            sql_statement = "UPDATE fine SET amount = amount + {} WHERE memberid = '{}'".format(fine_amt, self.ID_entry.get())
+            sql_statement = "INSERT INTO fine(memberid, amount) VALUES('{}', {})".format(data_ID, fine_amt )
             self.cursor.execute(sql_statement)
 
 

@@ -440,7 +440,7 @@ class Cancel(Container):
                 self.go_to_cancelError()
                 break
             else:
-                sql_statement = "INSERT INTO reservation(ReserverID, ReservedBookAccession, ReservedDate) VALUES('{}', '{}', '{}')".format(self.ID_entry.get(), self.AN_entry.get(), self.RD_entry.get())
+                sql_statement = "DELETE FROM reservation WHERE ReserverID = '{}' AND ReservedBookAccession = '{}'".format(self.ID_entry.get(), self.AN_entry.get())
                 self.cursor.execute(sql_statement)     
 
     def go_to_cancelError(self):
