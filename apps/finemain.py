@@ -153,10 +153,6 @@ class FinePayment(Container):
         self.CloseConfirmPage()
         self.MemberID = self.e1.get()
         self.Date = self.e2.get()
-        
-        #get accessionNo
-        sql_statement2 = "SELECT * FROM fine WHERE memberid = %s"
-        accessionNo = self.cursor.execute(sql_statement2, (self.MemberID,)).fetchall()[0][1]
 
         #delete from fine
         sql_statement3 = "DELETE FROM fine WHERE memberid = %s"

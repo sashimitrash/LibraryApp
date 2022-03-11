@@ -3,7 +3,6 @@ from PIL import Image, ImageTk
 from apps.resources.variables import *
 from apps.resources.container import Container
 from apps.report.report_pages import Report
-from apps.report.search import BookSearch, Notification
 from apps.bookmain import BookLandingPage
 from apps.finemain import FineLandingPage
 from landing_page import LandingPage

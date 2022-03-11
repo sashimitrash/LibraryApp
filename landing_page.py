@@ -47,9 +47,9 @@ class LandingPage(Container):
         self.fines_text.place(relx=0.5, rely=0.9, anchor='center')
 
         # Membership option
-        self.landing_member_image = self.open_image('apps/resources/reports.png', LANDING_PAGE_ICON_SIZE,
+        self.landing_member_image = self.open_image('apps/resources/membership.png', LANDING_PAGE_ICON_SIZE,
                                             LANDING_PAGE_ICON_SIZE)
-        self.member_button = Button(root, image=self.landing_report_image, command=self.go_to_member)
+        self.member_button = Button(root, image=self.landing_member_image, command=self.go_to_member)
         self.member_button.place(relx=0.25, rely=0.25, anchor='center')
         self.member_text = Label(root, text='Membership', font=(FONT, LANDING_PAGE_FONT_SIZE, STYLE),
                                  fg='black',
