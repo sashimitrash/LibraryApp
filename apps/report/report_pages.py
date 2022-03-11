@@ -88,7 +88,9 @@ class Report(Container):
 
     def book_on_loan(self):
         sql_statement = text("SELECT l.BorrowedBookAccession, b.title, b.isbn, b.publisher, b.publication_year "
-                             "FROM loan l LEFT JOIN books b ON l.BorrowedBookAccession = b.accession_no")
+                             "FROM loan l "
+                             "LEFT JOIN books b ON l.BorrowedBookAccession = b.accession_no "
+                             "WHERE l.ReturnedDate IS NULL")
         book_data = self.cursor.execute(sql_statement).fetchall()
         book_accessions = [data[0] for data in book_data]
         author_data = search_author_for_each_book(self.engine, book_accessions)
@@ -253,7 +255,7 @@ class BookSearch(Container):
 
         if len(book_query) > 0:
             for field, value in book_query.items():
-                book_condition = " {} {} = '{}'".format(keyword[keyword_idx], field, value)
+                book_condition = " {} {} LIKE '%%{}%%'".format(keyword[keyword_idx], field, value)
                 if keyword_idx == 0:
                     keyword_idx += 1
                 condition += book_condition
