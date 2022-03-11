@@ -225,13 +225,13 @@ class Borrow(Container):
         
         for x in range(1):
             #Book out on loan error
-            sql_statement = "SELECT BorrowedBookAccession FROM loan WHERE BorrowedBookAccession = '{}' AND ReturnedDate IS NULL".format(self.AN_entry.get())
+            sql_statement = "SELECT BorrowedBookAccession FROM loan WHERE BorrowedBookAccession = '{}'".format(self.AN_entry.get())
             data_BookBorrowed = self.cursor.execute(sql_statement).fetchall()
             if len(data_BookBorrowed) > 0:
                 self.go_to_borrowedError()
                 break
             #Loan quota error
-            sql_statement = "SELECT * FROM loan WHERE BorrowerID = '{}' AND ReturnedDate IS NULL".format(self.ID_entry.get())
+            sql_statement = "SELECT * FROM loan WHERE BorrowerID = '{}'".format(self.ID_entry.get())
             data_quota = self.cursor.execute(sql_statement).fetchall()
             if len(data_quota) >= 2:
                 self.go_to_quotaError()
@@ -268,7 +268,7 @@ class Borrow(Container):
         self.backBorrowButton.place(relx=0.5, rely=0.7, anchor="center")
 
     def go_to_borrowedError(self):
-        sql_statement = "SELECT * FROM loan WHERE BorrowedBookAccession = '{}' AND ReturnedDate IS NULL".format(self.AN_entry.get())
+        sql_statement = "SELECT * FROM loan WHERE BorrowedBookAccession = '{}'".format(self.AN_entry.get())
         data_BookBorrowed = self.cursor.execute(sql_statement).fetchall()
         self.popupErrorLabel = Label(self.container, text="Error!\n\n Book currently on Loan until:\n" + str(data_BookBorrowed[0][2] + timedelta(days=14)),\
             fg='yellow', bg='#FF0000', relief='raised', width=40, height=15)
@@ -472,10 +472,7 @@ class Return(Container):
         self.name_label.lower()
         self.RD_label.lower()
         self.fine_label.lower()
-        
-        #Update loan with return date
-        sql_statement = "UPDATE loan SET ReturnedDate = '{}' WHERE BorrowedBookAccession = '{}'".format(self.RD_entry.get(), self.AN_entry.get())
-        self.cursor.execute(sql_statement)
+
         #Find borrow date
         sql_statement = "SELECT BorrowDate FROM loan WHERE BorrowedBookAccession = '{}'".format(self.AN_entry.get())
         data_BD = self.cursor.execute(sql_statement).fetchall()[0][0] 
@@ -483,6 +480,10 @@ class Return(Container):
         fine_amt =  (datetime.strptime(self.RD_entry.get(), '%Y-%m-%d').date() - data_DD).days
         if fine_amt > 0:
             self.go_to_fineError()
+
+        # delete loan record once book has been returned
+        sql_statement = "DELETE from loan WHERE BorrowedBookAccession = '{}'".format(self.AN_entry.get())
+        self.cursor.execute(sql_statement)
         
     def go_to_fineError(self):
         self.popupErrorLabel = Label(self.container, text="Error!\n\n Book returned successfully but has fines.", 
@@ -501,7 +502,6 @@ class Return(Container):
         self.backBorrowButton.place(relx=0.5, rely=0.7, anchor="center")
         sql_statement = "SELECT * FROM fine WHERE memberid = '{}'".format(data_ID)
         data_fine = self.cursor.execute(sql_statement).fetchall()
-        print(data_fine)
         if len(data_fine) > 0:
             sql_statement = "UPDATE fine SET amount = amount + {} WHERE memberid = '{}'".format(fine_amt, data_ID)
             self.cursor.execute(sql_statement)

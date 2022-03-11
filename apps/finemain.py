@@ -118,7 +118,7 @@ class FinePayment(Container):
         self.MemberIDLabel.place(relx=0.5, rely=0.55, anchor="center")
         
         #confirm payment button
-        self.confirm_btn = tk.Button(self.container, text='Confirm Delete', padx=10, pady=10,
+        self.confirm_btn = tk.Button(self.container, text='Confirm Payment', padx=10, pady=10,
                                     command=self.canpay, bg='#27c0ab', borderwidth=5, relief='raised', highlightthickness=4, highlightbackground='#fae420')
         self.confirm_btn.config(font=(FONT,20,STYLE))
         self.confirm_btn.place(relx=0.4, rely=0.7, anchor='center')
