@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2b1b3c79-ce37-4143-b926-b2940e98b0e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/bookmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/bookmain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/finemain.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/finemain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reservation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reservation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/createFine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createFine.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL/createPayment.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/createPayment.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/resources/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/resources/variables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +59,35 @@
       <recent name="$PROJECT_DIR$/SQL" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="ijdhfjndjk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment 1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ijdhfjndjk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.ijdhfjndjk" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -81,7 +112,16 @@
       <workItem from="1646411585109" duration="2071000" />
       <workItem from="1646413669790" duration="3964000" />
       <workItem from="1646419619103" duration="96000" />
-      <workItem from="1646956115589" duration="3522000" />
+      <workItem from="1646447296187" duration="1747000" />
+      <workItem from="1646473074526" duration="2721000" />
+      <workItem from="1646531406970" duration="3362000" />
+      <workItem from="1646546405586" duration="310000" />
+      <workItem from="1646558236156" duration="599000" />
+      <workItem from="1646569009000" duration="4000" />
+      <workItem from="1646622250939" duration="237000" />
+      <workItem from="1646622589530" duration="599000" />
+      <workItem from="1646669540557" duration="96000" />
+      <workItem from="1646730479006" duration="1104000" />
     </task>
     <servers />
   </component>
@@ -89,6 +129,15 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

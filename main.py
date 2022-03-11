@@ -28,5 +28,5 @@ class LibraryApp(Container):
         child.container.grid_forget()
 
 
-app = LibraryApp()
 
+app = LibraryApp()
