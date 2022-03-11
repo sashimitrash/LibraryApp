@@ -36,3 +36,5 @@ BOOKS_ON_LOAN = ['Accession Number', 'Title', 'ISBN', 'Publisher', 'Year', 'Auth
 BOOKS_RESERVED = ['Accession Number', 'Title', 'MembershipID', 'Name']
 MEMBERS_WITH_FINES = ['MembershipID', 'Name', 'Faculty', 'Phone Number', 'Email Address']
 BOOKS_ON_LOAN_TO_MEMBERS = ['Accession Number', 'Title', 'ISBN', 'Publisher', 'Year', 'Authors']
+
+NOTIF_FONT_SIZE = 15

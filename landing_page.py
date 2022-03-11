@@ -1,6 +1,6 @@
 from tkinter import Label, Button
-from Loan import Loan
-from Reservation import Reservation
+from apps.Loan.Loan import Loan
+from apps.Loan.Reservation import Reservation
 
 from apps.resources.variables import *
 from apps.resources.container import Container
